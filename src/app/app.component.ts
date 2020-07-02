@@ -12,9 +12,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AppComponent  {
 
   customers: Customer[] = [
-    {FirstName: 'Priyank', LastName: 'Raghwani', Address: 'Chandlodia', Gender: 'Male',BirthDate: new Date(), Email: 'priyank@gmail.com'},
-    {FirstName: 'Parth', LastName: 'Raghwani', Address: 'Ghatlodia', Gender: 'Male', BirthDate: new Date(), Email: 'parth@gmail.com'},
-    {FirstName: 'Piyush', LastName: 'Raghwani', Address:'Naranpura', Gender: 'Male', BirthDate: new Date(),Email: 'piyush@gmail.com'},
+    {Id: Date.now(), FirstName: 'Priyank', LastName: 'Raghwani', Address: 'Chandlodia', Gender: 'Male',BirthDate: new Date(), Email: 'priyank@gmail.com'},
+    {Id: Date.now(), FirstName: 'Parth', LastName: 'Raghwani', Address: 'Ghatlodia', Gender: 'Male', BirthDate: new Date(), Email: 'parth@gmail.com'},
+    {Id: Date.now(), FirstName: 'Piyush', LastName: 'Raghwani', Address:'Naranpura', Gender: 'Male', BirthDate: new Date(),Email: 'piyush@gmail.com'},
   ];
   displayedColumns: string[];
   customerData;
@@ -42,6 +42,7 @@ export class AppComponent  {
       return;
     }
     const customer : Customer = {
+      Id: Date.now(),
       FirstName: this.registrationForm.value.firstName,
       LastName: this.registrationForm.value.lastName,
       Address: this.registrationForm.value.address,
@@ -49,8 +50,20 @@ export class AppComponent  {
       BirthDate: this.registrationForm.value.birthDate,
       Email: this.registrationForm.value.email,
     };
+    this.customers.push(customer);
     const data = this.customerData.data;
     data.push(customer);
     this.customerData = data;
+  }
+
+  deleteRecord(email: string){
+    console.log(this.customers)
+    console.log(email);
+    const customer = this.customers.find(x => x.Email === email);
+    this.customers.splice(this.customers.indexOf(customer),1);
+    //const data = this.customers.data;
+    console.log(this.customers);
+    this.customerData = this.customers;
+
   }
 }
