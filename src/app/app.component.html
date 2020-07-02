@@ -1,0 +1,116 @@
+<form [formGroup]="registrationForm" (ngSubmit)="registration()">
+  <div>
+    <mat-form-field>
+      <mat-label>
+        First Name
+      </mat-label>
+      <input matInput placeholder = "Ex. Priyank" formControlName = "firstName" required>
+      <mat-error *ngIf="registrationForm.get('firstName').hasError('required')">
+        FirstName is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>
+        Last Name
+      </mat-label>
+      <input matInput placeholder = "Ex. Raghwani" formControlName = "lastName" required>
+      <mat-error *ngIf="registrationForm.get('lastName').hasError('required')">
+        LastName is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>
+        Address
+      </mat-label>
+      <textarea matInput placeholder = "Ex. Raghwani" formControlName = "address" required></textarea>
+      <mat-error *ngIf="registrationForm.get('address').hasError('required')">
+        Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-radio-group formControlName="gender">
+      <mat-radio-button value="Male"> Male </mat-radio-button>
+      <mat-radio-button value="Female"> Female </mat-radio-button>
+      <mat-radio-button value="Other"> Other </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="birthDate" formControlName="birthDate">
+      <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+      <mat-datepicker #birthDate></mat-datepicker>
+  </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>
+        Email
+      </mat-label>
+      <input matInput placeholder = "Ex. priyank@gmail.com" formControlName = "email" required>
+      <mat-error *ngIf="registrationForm.get('email').hasError('email') && !registrationForm.get('email').hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="registrationForm.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary">Submit</button>
+  </div>
+</form>
+
+<div>
+  <table mat-table [dataSource]="customerData">
+
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.Gender}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthdate">
+      <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.BirthDate | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell> <button></button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
